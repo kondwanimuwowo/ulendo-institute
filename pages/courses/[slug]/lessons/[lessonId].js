@@ -8,7 +8,7 @@ import { ArrowLeft, CheckCircle, Lock, ChevronRight } from 'lucide-react';
 
 export default function LessonPage() {
     const router = useRouter();
-    const { courseSlug, lessonId } = router.query;
+    const { slug, lessonId } = router.query;
     const { user } = useAuth();
     const [lesson, setLesson] = useState(null);
     const [course, setCourse] = useState(null);
@@ -17,14 +17,14 @@ export default function LessonPage() {
     const [completing, setCompleting] = useState(false);
 
     useEffect(() => {
-        if (courseSlug && lessonId) {
+        if (slug && lessonId) {
             fetchLesson();
         }
-    }, [courseSlug, lessonId]);
+    }, [slug, lessonId]);
 
     const fetchLesson = async () => {
         try {
-            const res = await fetch(`/api/lessons/${lessonId}?courseSlug=${courseSlug}`);
+            const res = await fetch(`/api/lessons/${lessonId}?courseSlug=${slug}`);
             if (res.ok) {
                 const data = await res.json();
                 setLesson(data.lesson);
@@ -126,7 +126,7 @@ export default function LessonPage() {
                     <div className="bg-black">
                         <div className="container-custom py-4">
                             <Link
-                                href={`/courses/${courseSlug}`}
+                                href={`/courses/${slug}`}
                                 className="flex items-center text-white/80 hover:text-white mb-4"
                             >
                                 <ArrowLeft className="w-4 h-4 mr-2" />
@@ -189,7 +189,7 @@ export default function LessonPage() {
                                     {nextLesson && (
                                         <div className="mt-8 pt-8 border-t border-gray-200">
                                             <Link
-                                                href={`/courses/${courseSlug}/lessons/${nextLesson.id}`}
+                                                href={`/courses/${slug}/lessons/${nextLesson.id}`}
                                                 className="flex items-center justify-between p-4 bg-primary-50 hover:bg-primary-100 rounded-lg transition-colors"
                                             >
                                                 <div>
@@ -211,18 +211,18 @@ export default function LessonPage() {
                                         {course.lessons.map((l, idx) => (
                                             <Link
                                                 key={l.id}
-                                                href={`/courses/${courseSlug}/lessons/${l.id}`}
+                                                href={`/courses/${slug}/lessons/${l.id}`}
                                                 className={`block p-3 rounded-lg transition-colors ${l.id === lesson.id
-                                                        ? 'bg-primary-100 border border-primary-200'
-                                                        : 'hover:bg-gray-50'
+                                                    ? 'bg-primary-100 border border-primary-200'
+                                                    : 'hover:bg-gray-50'
                                                     }`}
                                             >
                                                 <div className="flex items-start gap-3">
                                                     <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold ${l.isCompleted
-                                                            ? 'bg-green-500 text-white'
-                                                            : l.id === lesson.id
-                                                                ? 'bg-primary-600 text-white'
-                                                                : 'bg-gray-200 text-gray-600'
+                                                        ? 'bg-green-500 text-white'
+                                                        : l.id === lesson.id
+                                                            ? 'bg-primary-600 text-white'
+                                                            : 'bg-gray-200 text-gray-600'
                                                         }`}>
                                                         {l.isCompleted ? '✓' : idx + 1}
                                                     </div>
