@@ -56,7 +56,7 @@ export default function PricingTable({ plans = [], userSubscription }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                 {plans.map((plan) => {
                     const monthlyEquiv = getMonthlyEquivalent(plan);
-                    const features = plan.features?.includes || [];
+                    const features = plan.features?.features || plan.features?.includes || [];
                     const isCurrentPlan = userSubscription?.planId === plan.id;
 
                     return (
@@ -79,8 +79,9 @@ export default function PricingTable({ plans = [], userSubscription }) {
                             {/* Price */}
                             <div className="mb-6">
                                 <div className="flex items-baseline">
+                                    <span className="text-sm font-bold text-gray-500 mr-1">ZMW</span>
                                     <span className="text-5xl font-black text-gray-900">
-                                        ${formatPrice(plan.priceCents)}
+                                        {formatPrice(plan.priceCents)}
                                     </span>
                                     <span className="text-gray-600 ml-2">
                                         / {plan.interval.toLowerCase()}
@@ -88,7 +89,7 @@ export default function PricingTable({ plans = [], userSubscription }) {
                                 </div>
                                 {monthlyEquiv && (
                                     <p className="text-sm text-gray-500 mt-1">
-                                        Just ${monthlyEquiv}/month
+                                        Just ZMW {monthlyEquiv}/month
                                     </p>
                                 )}
                             </div>

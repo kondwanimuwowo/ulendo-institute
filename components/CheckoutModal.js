@@ -127,8 +127,8 @@ export default function CheckoutModal({ isOpen, onClose, plan, user }) {
                                     <motion.div
                                         animate={{ scale: step >= s.number ? 1 : 0.95 }}
                                         className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${step >= s.number
-                                                ? 'bg-primary-600 text-white'
-                                                : 'bg-gray-100 text-gray-400'
+                                            ? 'bg-primary-600 text-white'
+                                            : 'bg-gray-100 text-gray-400'
                                             }`}
                                     >
                                         {step > s.number ? <Check className="w-5 h-5" /> : <s.Icon className="w-5 h-5" />}
@@ -165,7 +165,8 @@ export default function CheckoutModal({ isOpen, onClose, plan, user }) {
                                 <div className="bg-gradient-to-r from-primary-50 to-accent-50 rounded-xl p-6 mb-6">
                                     <h3 className="text-lg font-semibold mb-2">Selected Plan</h3>
                                     <div className="flex items-baseline gap-2">
-                                        <span className="text-4xl font-black text-gray-900">${formatPrice(plan?.priceCents)}</span>
+                                        <span className="text-sm font-bold text-gray-500">ZMW</span>
+                                        <span className="text-4xl font-black text-gray-900">{formatPrice(plan?.priceCents)}</span>
                                         <span className="text-gray-600">/ {plan?.interval.toLowerCase()}</span>
                                     </div>
                                     <p className="text-sm text-gray-600 mt-2">{plan?.name}</p>
@@ -173,7 +174,7 @@ export default function CheckoutModal({ isOpen, onClose, plan, user }) {
 
                                 <div className="space-y-3">
                                     <h4 className="font-semibold">What's included:</h4>
-                                    {plan?.features?.includes?.map((feature, i) => (
+                                    {(plan?.features?.features || plan?.features?.includes)?.map((feature, i) => (
                                         <div key={i} className="flex items-start gap-2">
                                             <Check className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                                             <span className="text-gray-700">{feature}</span>
@@ -232,8 +233,8 @@ export default function CheckoutModal({ isOpen, onClose, plan, user }) {
                                                 type="button"
                                                 onClick={() => setFormData({ ...formData, paymentMethod: 'mobile-money' })}
                                                 className={`p-4 border-2 rounded-lg transition-all ${formData.paymentMethod === 'mobile-money'
-                                                        ? 'border-primary-600 bg-primary-50'
-                                                        : 'border-gray-200 hover:border-gray-300'
+                                                    ? 'border-primary-600 bg-primary-50'
+                                                    : 'border-gray-200 hover:border-gray-300'
                                                     }`}
                                             >
                                                 <div className="font-semibold">Mobile Money</div>
@@ -243,8 +244,8 @@ export default function CheckoutModal({ isOpen, onClose, plan, user }) {
                                                 type="button"
                                                 onClick={() => setFormData({ ...formData, paymentMethod: 'card' })}
                                                 className={`p-4 border-2 rounded-lg transition-all ${formData.paymentMethod === 'card'
-                                                        ? 'border-primary-600 bg-primary-50'
-                                                        : 'border-gray-200 hover:border-gray-300'
+                                                    ? 'border-primary-600 bg-primary-50'
+                                                    : 'border-gray-200 hover:border-gray-300'
                                                     }`}
                                             >
                                                 <div className="font-semibold">Card</div>
@@ -313,7 +314,7 @@ export default function CheckoutModal({ isOpen, onClose, plan, user }) {
                                 <div className="space-y-4">
                                     <div className="bg-gray-50 rounded-lg p-4">
                                         <div className="text-sm text-gray-600 mb-1">Plan</div>
-                                        <div className="font-semibold">{plan?.name} - ${formatPrice(plan?.priceCents)}/{plan?.interval.toLowerCase()}</div>
+                                        <div className="font-semibold">{plan?.name} - ZMW {formatPrice(plan?.priceCents)}/{plan?.interval.toLowerCase()}</div>
                                     </div>
 
                                     <div className="bg-gray-50 rounded-lg p-4">

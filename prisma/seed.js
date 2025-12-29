@@ -218,16 +218,16 @@ We'll walk through setting up your Canva workspace and choosing the right templa
 
     // Create Sample Plans
     const monthlyPlan = await prisma.plan.upsert({
-        where: { slug: 'monthly-access' },
+        where: { slug: 'monthly-zmw' },
         update: {},
         create: {
             name: 'Monthly Access',
-            slug: 'monthly-access',
-            priceCents: 2900, // $29.00
+            slug: 'monthly-zmw',
+            priceCents: 50000, // ZMW 500.00
             interval: 'MONTH',
             trialDays: 0,
             features: {
-                includes: [
+                features: [
                     'Access to all published courses',
                     'New course releases',
                     'Community forum access',
@@ -240,29 +240,29 @@ We'll walk through setting up your Canva workspace and choosing the right templa
     });
 
     const annualPlan = await prisma.plan.upsert({
-        where: { slug: 'annual-access' },
+        where: { slug: 'yearly-zmw' },
         update: {},
         create: {
             name: 'Annual Access',
-            slug: 'annual-access',
-            priceCents: 29000, // $290.00 (save $58)
+            slug: 'yearly-zmw',
+            priceCents: 500000, // ZMW 5000.00
             interval: 'YEAR',
             trialDays: 0,
             features: {
-                includes: [
+                features: [
                     'Access to all published courses',
                     'New course releases',
                     'Community forum access',
                     'Certificate of completion',
                     'Priority support',
                     'Early access to new features',
-                    'Save $58 per year',
+                    'Save ZMW 1000 per year',
                 ],
             },
             isActive: true,
         },
     });
-    console.log('✅ Created sample plans');
+    console.log('✅ Created ZMW sample plans');
 
     console.log('🎉 Database seeding completed successfully!');
     console.log('\n📧 Login Credentials:');
