@@ -26,8 +26,13 @@ export default function Layout({ children }) {
                                 Pricing
                             </Link>
                             {user && user.role === 'ADMIN' && (
-                                <Link href="/admin/instructors" className="text-primary-600 hover:text-primary-800 font-bold transition-colors">
+                                <Link href="/admin" className="text-purple-600 hover:text-purple-800 font-bold transition-colors">
                                     Admin
+                                </Link>
+                            )}
+                            {user && user.role === 'INSTRUCTOR' && user.instructorApproved && (
+                                <Link href="/instructor" className="text-blue-600 hover:text-blue-800 font-bold transition-colors">
+                                    Instructor
                                 </Link>
                             )}
                             {user ? (
@@ -80,8 +85,13 @@ export default function Layout({ children }) {
                                 Pricing
                             </Link>
                             {user && user.role === 'ADMIN' && (
-                                <Link href="/admin/instructors" className="block py-2 text-primary-600 hover:text-primary-800 font-bold font-display">
+                                <Link href="/admin" className="block py-2 text-purple-600 hover:text-purple-800 font-bold font-display">
                                     Admin Dashboard
+                                </Link>
+                            )}
+                            {user && user.role === 'INSTRUCTOR' && user.instructorApproved && (
+                                <Link href="/instructor" className="block py-2 text-blue-600 hover:text-blue-800 font-bold font-display">
+                                    Instructor Dashboard
                                 </Link>
                             )}
                             {user ? (
