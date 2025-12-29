@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Layout from '../../../components/Layout';
-import ProtectedRoute from '../../../components/ProtectedRoute';
-import { useAuth } from '../../../lib/AuthContext';
+import Layout from '../../../../components/Layout';
+import ProtectedRoute from '../../../../components/ProtectedRoute';
+import { useAuth } from '../../../../lib/AuthContext';
 import Link from 'next/link';
 import { ArrowLeft, CheckCircle, Lock, ChevronRight } from 'lucide-react';
 
