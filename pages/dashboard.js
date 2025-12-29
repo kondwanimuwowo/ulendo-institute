@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 import ProtectedRoute from '../components/ProtectedRoute';
 import { useAuth } from '../lib/AuthContext';
@@ -6,6 +7,7 @@ import CourseCard from '../components/CourseCard';
 import Link from 'next/link';
 
 export default function Dashboard() {
+    const router = useRouter();
     const { user } = useAuth();
     const [stats, setStats] = useState({ enrollments: 0, completed: 0 });
     const [courses, setCourses] = useState([]);
@@ -13,6 +15,18 @@ export default function Dashboard() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        // Redirect admins and instructors to their dashboards
+        if (user) {
+            if (user.role === 'ADMIN') {
+                router.push('/admin');
+                return;
+            }
+            if (user.role === 'INSTRUCTOR' && user.instructorApproved) {
+                router.push('/instructor');
+                return;
+            }
+        }
+
         const fetchDashboardData = async () => {
             try {
                 // Fetch user data with subscription
@@ -40,7 +54,7 @@ export default function Dashboard() {
         };
 
         fetchDashboardData();
-    }, []);
+    }, [user, router]);
 
     return (
         <ProtectedRoute>
