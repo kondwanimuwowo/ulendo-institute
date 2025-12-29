@@ -122,12 +122,64 @@ async function main() {
     });
 
     console.log('✓ Created 5 lessons (1 free, 4 premium)');
+
+    // Create subscription plans
+    const monthlyPlan = await prisma.plan.upsert({
+        where: { slug: 'monthly-zmw' },
+        update: {},
+        create: {
+            name: 'Monthly Access',
+            slug: 'monthly-zmw',
+            priceCents: 50000, // ZMW 500.00
+            interval: 'MONTH',
+            trialDays: 0,
+            features: {
+                features: [
+                    'Access to all premium courses',
+                    'Unlimited lesson views',
+                    'Progress tracking',
+                    'Certificate of completion',
+                    'Cancel anytime'
+                ]
+            },
+            isActive: true,
+        },
+    });
+
+    const yearlyPlan = await prisma.plan.upsert({
+        where: { slug: 'yearly-zmw' },
+        update: {},
+        create: {
+            name: 'Yearly Access',
+            slug: 'yearly-zmw',
+            priceCents: 500000, // ZMW 5000.00
+            interval: 'YEAR',
+            trialDays: 0,
+            features: {
+                features: [
+                    'Access to all premium courses',
+                    'Unlimited lesson views',
+                    'Progress tracking',
+                    'Certificate of completion',
+                    'Priority support',
+                    'Save 17% vs monthly'
+                ]
+            },
+            isActive: true,
+        },
+    });
+
+    console.log('✓ Created subscription plans (Monthly: ZMW 500, Yearly: ZMW 5000)');
     console.log('✅ Seeding complete!');
     console.log('\n📚 Demo course created:');
     console.log(`   - Title: ${course.title}`);
     console.log(`   - Slug: ${course.slug}`);
     console.log(`   - Instructor: ${instructor.name}`);
     console.log(`   - Lessons: 5 (1 free preview)`);
+    console.log('\n💳 Subscription plans:');
+    console.log(`   - Monthly: ZMW 500/month`);
+    console.log(`   - Yearly: ZMW 5000/year (save 17%)`);
+
 }
 
 main()
